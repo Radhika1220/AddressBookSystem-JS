@@ -74,12 +74,17 @@ function createContact(contactArray) {
             zipCode = prompt('Enter ZipCode: ')
             phoneNumber = prompt('Enter phone number :');
             emailId = prompt('Enter EmailId : ');
-
+            //UC7--checking the duplicate
+        let duplicate=contactArray.filter(x=>x.firstName==firstName);
+          if(duplicate.length==0)
+           {
             //creating a object 
             let contactClassObject = new ContactClass(firstName, lastName, address, city, state, zipCode, phoneNumber, emailId);
+         
             contactArray.push(contactClassObject);
+            }
         }
-    }
+ }
     catch (e) {
         console.log(e);
     }
