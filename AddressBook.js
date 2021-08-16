@@ -99,6 +99,66 @@ catch(e)
     console.log(e);
 }
 }
+function Modify(address) {
+    try {
+        if (address.length > 0) {
+            var name = prompt("enter first name");
+            var res = address.find(x => x.firstName == name);
+            if (res != null) {
+                while (true) {
+                    console.log("Enter the option to modify the property: ");
+                    console.log("Enter 1 to Change First name ");
+                    console.log("Enter 2 to Change Last name ");
+                    console.log("Enter 3 to Change Phone Number ");
+                    console.log("Enter 4 to Change Address ");
+                    console.log("Enter 5 to Change City ");
+                    console.log("Enter 6 to Change State ");
+                    console.log("Enter 7 to Change Pincode ");
+                    console.log("Enter 8 to Exit ");
+                    let Check = prompt("enter option ");
+                    switch (Check) {
+                        case "1":
+                            res.firstName = prompt("Enter the New First Name: ");
+                            break;
+                        case "2":
+                            res.lastName = prompt('Enter new last Name: ');
+
+                            break;
+                        case "3":
+                            res.address = prompt('Enter new address: ');
+
+                            break;
+                        case "4":
+                            res.City = prompt('Enter new City Name: ');
+
+                            break;
+                        case "5":
+                            res.State = prompt('Enter new State Name: ');
+
+                            break;
+                        case "6":
+                            res.zip = prompt('Enter new zip: ');
+
+                            break;
+                        case "7":
+                            res.phone = prompt('Enter new Phone Number: ');
+
+                            break;
+                        case "8":
+                            res.email = prompt('Enter new Email ID: ');
+                            break;
+                        case "9":
+                            return;
+                    }
+                }
+            }
+        }
+    }
+
+    catch (e) {
+        console.log(e);
+    }
+}
 //function for iterate array
 function iterateArray(contact)
 {
@@ -115,7 +175,7 @@ function check()
 var contactArray=new Array();
 while(true)
 {
-var option=console.log("Enter 1 to add details to addressbook \nEnter 2 to Display \nEnter 3 to Exit\n");
+var option=console.log("Enter 1 to add details to addressbook \nEnter 2 to Display \nEnter 3 to modify existing contact \nEnter 3 to Exit\n");
 var c=prompt("enter a option");
 switch(c)
 {
@@ -125,6 +185,11 @@ switch(c)
      case "2":
         iterateArray(contactArray);
         break;
+        case "3":
+            Modify(contactArray);
+            break;
+            case"4":
+            return;
         default:
             console.log("enter a valid option");
             break;
