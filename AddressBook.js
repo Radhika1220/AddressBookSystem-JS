@@ -1,4 +1,6 @@
+  
 var prompt=require("prompt-sync")();
+
 //UC1-->Create a addressbook
 //contact class
 class ContactClass
@@ -68,7 +70,14 @@ class ContactClass
     return ("Name: " + this.firstName +" "+ this.lastName + " \t Address: " +this.address+" \t City: " +this.city+" \t State: "+this.state+" \t Pincode: " +this.zipCode+" \t Phone Number: "+this.phoneNumber+" \t Email Id: "+this.emailId)
    }
 }
+//function to create contact 
+function createContact(contactArray)
+{
 try
+{
+var num=prompt("enter the number of contacts to be added : ");
+
+while(num--)
 {
 //getting the input from user 
 firstName = prompt('Enter first name : ');
@@ -82,10 +91,44 @@ emailId= prompt('Enter EmailId : ');
 
 //creating a object 
 let contactClassObject=new ContactClass(firstName,lastName,address,city,state,zipCode,phoneNumber,emailId);
-//calling a tostring method
-console.log(contactClassObject.toString());
+contactArray.push(contactClassObject);
+}
 }
 catch(e)
 {
     console.log(e);
 }
+}
+//function for iterate array
+function iterateArray(contact)
+{
+    for(let i=0;i<contact.length;i++)
+    {
+        console.log(contact[i].toString()+"\n");
+    }
+
+}
+
+function check()
+{
+    //creating a array
+var contactArray=new Array();
+while(true)
+{
+var option=console.log("Enter 1 to add details to addressbook \nEnter 2 to Display \nEnter 3 to Exit\n");
+var c=prompt("enter a option");
+switch(c)
+{
+    case "1":
+        createContact(contactArray);
+        break;
+     case "2":
+        iterateArray(contactArray);
+        break;
+        default:
+            console.log("enter a valid option");
+            break;
+}
+}
+}
+check();
