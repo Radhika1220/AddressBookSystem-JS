@@ -159,23 +159,48 @@ function Modify(address) {
         console.log(e);
     }
 }
+//delete the contact using name
+function Delete(contact)
+{
+    var fName = prompt('Enter first name :');
+    var lName = prompt('Enter last name: ');
+    for(let i=0;i<contact.length;i++)
+    {
+        if(contact[i].firstName == fName && contact[i].lastName == lName)
+        {
+            contact.splice(i,1);
+            console.log("Deleted successfully");
+            break;
+        }
+    }
+}
 //function for iterate array
 function iterateArray(contact)
 {
+    if(contact.length>0)
+    {
     for(let i=0;i<contact.length;i++)
     {
         console.log(contact[i].toString()+"\n");
     }
-
+}
+else
+{
+    console.log("No contacts present");
 }
 
+}
+function countOfContact(count)
+{
+    return count+1;
+}
 function check()
 {
     //creating a array
 var contactArray=new Array();
 while(true)
 {
-var option=console.log("Enter 1 to add details to addressbook \nEnter 2 to Display \nEnter 3 to modify existing contact \nEnter 3 to Exit\n");
+var option=console.log("Enter 1 to add details to addressbook \nEnter 2 to Display \nEnter 3 to modify existing contact\nEnter 4 to delete the contact \nEnter 3 to Exit\n");
 var c=prompt("enter a option");
 switch(c)
 {
@@ -188,7 +213,10 @@ switch(c)
         case "3":
             Modify(contactArray);
             break;
-            case"4":
+            case "4":
+                Delete(contactArray);
+                break;
+            case"5":
             return;
         default:
             console.log("enter a valid option");
