@@ -80,7 +80,7 @@ function createContact(contactArray) {
            {
             //creating a object 
             let contactClassObject = new ContactClass(firstName, lastName, address, city, state, zipCode, phoneNumber, emailId);
-         
+         //UC3-->create array
             contactArray.push(contactClassObject);
             }
         }
@@ -89,6 +89,7 @@ function createContact(contactArray) {
         console.log(e);
     }
 }
+//UC4->existing contact
 function Modify(address) {
     try {
         if (address.length > 0) {
@@ -149,7 +150,7 @@ function Modify(address) {
         console.log(e);
     }
 }
-//delete the contact using name
+//UC5-->delete the contact using name
 function Delete(contact) {
     var fName = prompt('Enter first name :');
     var lName = prompt('Enter last name: ');
@@ -159,6 +160,33 @@ function Delete(contact) {
             console.log("Deleted successfully");
             break;
         }
+    }
+}
+//UC8--->search the contact based on city or state
+function searchBasedonStateOrCity(contact)
+{
+    console.log("\nEnter 1 to search based on city");
+    console.log("\nEnter 2 to search based on state");
+    console.log("Enter 3 to exit from function")
+    var option=prompt("Enter option");
+    switch(option)
+    {
+        case "1":
+            var city=prompt("Enter a city name");
+            var resCity=contact.filter(x=>x.city==city);
+            if(resCity.length!=0)
+            {
+                iterateArray(resCity);
+            }
+            case "2":
+                var state=prompt("Enter a state name");
+                var resState=contact.filter(x=>x.state==state);
+                if(resState.length!=0)
+                {
+                    iterateArray(resState);
+                }
+                case "3":
+                    return;
     }
 }
 //function for iterate array
@@ -173,6 +201,7 @@ function iterateArray(contact) {
     }
 
 }
+//UC6-number of contacts in address book
 function countOfContact(count) {
     return count + 1;
 }
@@ -181,7 +210,8 @@ function check() {
     var contactArray = new Array();
     while (true) {
      console.log("Enter 1 to add details to addressbook \nEnter 2 to Display \nEnter 3 to modify existing contact");
-     console.log("\nEnter 4 to delete the contact\nEnter 5 to find count of addressbook\n");
+     console.log("Enter 4 to delete the contact\nEnter 5 to find count of addressbook");
+     console.log("Enter 6 to search based on city or state\n Enter 7 to exit")
 
         var c = prompt("enter a option");
         switch (c) {
@@ -200,7 +230,9 @@ function check() {
             case "5":
                 console.log("Total number of contacts in addressbook " + contactArray.reduce(countOfContact, 0));
                 break;
-            case "6":
+                case "6":
+                    searchBasedonStateOrCity(contactArray);
+            case "7":
                 return;
             default:
                 console.log("enter a valid option");
