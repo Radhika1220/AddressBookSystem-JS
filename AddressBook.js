@@ -219,7 +219,7 @@ function ViewByCityAndState(contactArray) {
     }
     //UC10--->count the contact based on city and state
     for (let [key, value] of city) {
-       //count based on city 
+        //count based on city 
         console.log("City: " + key);
         console.log("Count is: " + value.reduce(countOfContact, 0) + "\n");
     }
@@ -243,19 +243,61 @@ function iterateArray(contact) {
         console.log("No contacts present");
     }
 }
-function sortBasedOnName(contact,x,y)
-{
+//Uc11->sort the contact based on name
+function sortBasedOnName(contact, x, y) {
 
-    contact.sort((a,b)=>
-    {
-    if(a.firstName<b.firstName)
-    {
-        return -1;
-    }
-    else return 1;
+    contact.sort((a, b) => {
+        if (a.firstName < b.firstName) {
+            return -1;
+        }
+        else return 1;
     });
-   iterateArray(contact);
+    iterateArray(contact);
 }
+//UC12-->sort based on city or state or zip
+function sortBasedOnCityOrStateOrZip(contact)
+{
+    console.log("Enter 1 to sort based on city\n");
+    console.log("Enter 2 to sort based on state\n");
+    console.log("Enter 3 to sort based on zip\n");
+    var option=prompt("enter a option");
+    switch(option)
+    {
+        case "1":
+           contact.sort((a,b)=>{
+               if(a.city<b.city)
+               {
+                   return -1;
+               }
+               else return 1;
+           });
+           iterateArray(contact);
+           break;
+           case "2":
+            contact.sort((a,b)=>{
+                if(a.state<b.state)
+                {
+                    return -1;
+                }
+                else return 1;
+            });
+            iterateArray(contact);
+            break;
+            case "3":
+                contact.sort((a,b)=>{
+                    if(a.zip<b.zip)
+                    {
+                        return -1;
+                    }
+                    else return 1;
+                });
+                iterateArray(contact);
+                break;
+                case "4":
+                    return;
+    }
+}
+
 //UC6-number of contacts in address book
 function countOfContact(count) {
     return count + 1;
@@ -267,8 +309,8 @@ function check() {
         console.log("Enter 1 to add details to addressbook \nEnter 2 to Display \nEnter 3 to modify existing contact");
         console.log("Enter 4 to delete the contact\nEnter 5 to find count of addressbook");
         console.log("Enter 6 to search based on city or state\nEnter 7 to view based on city or state and count based on city and state");
-        console.log("Enter 8to sort the name in contact");
-        console.log("Enter 9 to exit");
+        console.log("Enter 8 to sort the name in contact\nEnter 9 to sort the state or city or zip in addressbook");
+        console.log("Enter 10 to exit");
 
         var c = prompt("enter a option");
         switch (c) {
@@ -292,10 +334,13 @@ function check() {
             case "7":
                 ViewByCityAndState(contactArray);
                 break;
-                case "8":
-                    sortBasedOnName(contactArray);
+            case "8":
+                sortBasedOnName(contactArray);
+                break;
+                case "9":
+                    sortBasedOnCityOrStateOrZip(contactArray);
                     break;
-            case "9":
+            case "10":
                 return;
             default:
                 console.log("enter a valid option");
