@@ -217,19 +217,17 @@ function ViewByCityAndState(contactArray) {
         console.log("The contacts in state " + key);
         iterateArray(value);
     }
-//UC10--->count the contact based on city and state
-    for(let [key,value] of city)
-    {
-        //UC-10 count based on city
-        console.log("City: "+key);
-        console.log("Count is: "+value.reduce(countOfContact,0)+"\n");
+    //UC10--->count the contact based on city and state
+    for (let [key, value] of city) {
+       //count based on city 
+        console.log("City: " + key);
+        console.log("Count is: " + value.reduce(countOfContact, 0) + "\n");
     }
-    for(let [key,value] of state)
-    {
+    for (let [key, value] of state) {
         //count based on state
-        console.log("State: "+key);
-        console.log("Count is: "+value.reduce(countOfContact,0)+"\n");
-        
+        console.log("State: " + key);
+        console.log("Count is: " + value.reduce(countOfContact, 0) + "\n");
+
     }
 }
 
@@ -244,11 +242,23 @@ function iterateArray(contact) {
     else {
         console.log("No contacts present");
     }
+}
+function sortBasedOnName(contact,x,y)
+{
 
+    contact.sort((a,b)=>
+    {
+    if(a.firstName<b.firstName)
+    {
+        return -1;
+    }
+    else return 1;
+    });
+   iterateArray(contact);
 }
 //UC6-number of contacts in address book
 function countOfContact(count) {
-    return count+1;
+    return count + 1;
 }
 function check() {
     //creating a array
@@ -257,7 +267,8 @@ function check() {
         console.log("Enter 1 to add details to addressbook \nEnter 2 to Display \nEnter 3 to modify existing contact");
         console.log("Enter 4 to delete the contact\nEnter 5 to find count of addressbook");
         console.log("Enter 6 to search based on city or state\nEnter 7 to view based on city or state and count based on city and state");
-         console.log("Enter 8 to exit");
+        console.log("Enter 8to sort the name in contact");
+        console.log("Enter 9 to exit");
 
         var c = prompt("enter a option");
         switch (c) {
@@ -282,7 +293,7 @@ function check() {
                 ViewByCityAndState(contactArray);
                 break;
                 case "8":
-                    countByCityAndState();
+                    sortBasedOnName(contactArray);
                     break;
             case "9":
                 return;
