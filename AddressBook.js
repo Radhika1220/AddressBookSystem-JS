@@ -75,16 +75,15 @@ function createContact(contactArray) {
             phoneNumber = prompt('Enter phone number :');
             emailId = prompt('Enter EmailId : ');
             //UC7--checking the duplicate
-        let duplicate=contactArray.filter(x=>x.firstName==firstName);
-          if(duplicate.length==0)
-           {
-            //creating a object 
-            let contactClassObject = new ContactClass(firstName, lastName, address, city, state, zipCode, phoneNumber, emailId);
-         //UC3-->create array
-            contactArray.push(contactClassObject);
+            let duplicate = contactArray.filter(x => x.firstName == firstName);
+            if (duplicate.length == 0) {
+                //creating a object 
+                let contactClassObject = new ContactClass(firstName, lastName, address, city, state, zipCode, phoneNumber, emailId);
+                //UC3-->create array
+                contactArray.push(contactClassObject);
             }
         }
- }
+    }
     catch (e) {
         console.log(e);
     }
@@ -163,70 +162,77 @@ function Delete(contact) {
     }
 }
 //UC8--->search the contact based on city or state
-function searchBasedonStateOrCity(contact)
-{
+function searchBasedonStateOrCity(contact) {
     console.log("\nEnter 1 to search based on city");
     console.log("\nEnter 2 to search based on state");
     console.log("Enter 3 to exit from function")
-    var option=prompt("Enter option");
-    switch(option)
-    {
+    var option = prompt("Enter option");
+    switch (option) {
         case "1":
-            var city=prompt("Enter a city name");
-            var resCity=contact.filter(x=>x.city==city);
-            if(resCity.length!=0)
-            {
+            var city = prompt("Enter a city name");
+            var resCity = contact.filter(x => x.city == city);
+            if (resCity.length != 0) {
                 iterateArray(resCity);
             }
-            case "2":
-                var state=prompt("Enter a state name");
-                var resState=contact.filter(x=>x.state==state);
-                if(resState.length!=0)
-                {
-                    iterateArray(resState);
-                }
-                case "3":
-                    return;
+        case "2":
+            var state = prompt("Enter a state name");
+            var resState = contact.filter(x => x.state == state);
+            if (resState.length != 0) {
+                iterateArray(resState);
+            }
+        case "3":
+            return;
     }
 }
 //UC9-->view bu city and state
-function ViewByCityAndState(contactArray)
-{
+function ViewByCityAndState(contactArray) {
     //creating a map for city an state
     var city = new Map();
     var state = new Map();
-    contactArray.forEach(contact =>
-        {
+    contactArray.forEach(contact => {
         var array = new Array();
-      
-    if(city.has(contact.city))
-    {
-        array = city.get(contact.city);
-       
-    }
-    array.push(contact);
-    city.set(contact.city,array);
 
-    var array = new Array();
-    if(state.has(contact.state))
-    {
-        array = state.get(contact.state);
-       
+        if (city.has(contact.city)) {
+            array = city.get(contact.city);
+
+        }
+        array.push(contact);
+        city.set(contact.city, array);
+
+        var array = new Array();
+        if (state.has(contact.state)) {
+            array = state.get(contact.state);
+
+        }
+        array.push(contact);
+        state.set(contact.state, array);
+    })
+    console.log("********Printing contacts based on city***********");
+    for (let [key, value] of city) {
+        console.log("The contacts in city " + key);
+        iterateArray(value);
     }
-    array.push(contact);
-    state.set(contact.state,array);
-})
-console.log("********Printing contacts based on city***********");
-for(let [key,value] of city){
-    console.log("The contacts in city "+key);
-    iterateArray(value);
+    console.log("********Printing contacts based on state***********");
+    for (let [key, value] of state) {
+        console.log("The contacts in state " + key);
+        iterateArray(value);
+    }
+//UC10--->count the contact based on city and state
+    for(let [key,value] of city)
+    {
+        //UC-10 count based on city
+        console.log("City: "+key);
+        console.log("Count is: "+value.reduce(countOfContact,0)+"\n");
+    }
+    for(let [key,value] of state)
+    {
+        //count based on state
+        console.log("State: "+key);
+        console.log("Count is: "+value.reduce(countOfContact,0)+"\n");
+        
+    }
 }
-console.log("********Printing contacts based on state***********");
-for(let [key,value] of state){
-    console.log("The contacts in state "+key);
-    iterateArray(value);
-}
-}
+
 
 //function for iterate array
 function iterateArray(contact) {
@@ -242,15 +248,16 @@ function iterateArray(contact) {
 }
 //UC6-number of contacts in address book
 function countOfContact(count) {
-    return count + 1;
+    return count+1;
 }
 function check() {
     //creating a array
     var contactArray = new Array();
     while (true) {
-     console.log("Enter 1 to add details to addressbook \nEnter 2 to Display \nEnter 3 to modify existing contact");
-     console.log("Enter 4 to delete the contact\nEnter 5 to find count of addressbook");
-     console.log("Enter 6 to search based on city or state\nEnter 7 to view based on city or state\n Enter 8 to exit")
+        console.log("Enter 1 to add details to addressbook \nEnter 2 to Display \nEnter 3 to modify existing contact");
+        console.log("Enter 4 to delete the contact\nEnter 5 to find count of addressbook");
+        console.log("Enter 6 to search based on city or state\nEnter 7 to view based on city or state and count based on city and state");
+         console.log("Enter 8 to exit");
 
         var c = prompt("enter a option");
         switch (c) {
@@ -269,12 +276,15 @@ function check() {
             case "5":
                 console.log("Total number of contacts in addressbook " + contactArray.reduce(countOfContact, 0));
                 break;
-                case "6":
-                    searchBasedonStateOrCity(contactArray);
-                    case "7":
-                        ViewByCityAndState(contactArray);
-                        break;
-            case "8":
+            case "6":
+                searchBasedonStateOrCity(contactArray);
+            case "7":
+                ViewByCityAndState(contactArray);
+                break;
+                case "8":
+                    countByCityAndState();
+                    break;
+            case "9":
                 return;
             default:
                 console.log("enter a valid option");
