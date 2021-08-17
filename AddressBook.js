@@ -189,6 +189,45 @@ function searchBasedonStateOrCity(contact)
                     return;
     }
 }
+//UC9-->view bu city and state
+function ViewByCityAndState(contactArray)
+{
+    //creating a map for city an state
+    var city = new Map();
+    var state = new Map();
+    contactArray.forEach(contact =>
+        {
+        var array = new Array();
+      
+    if(city.has(contact.city))
+    {
+        array = city.get(contact.city);
+       
+    }
+    array.push(contact);
+    city.set(contact.city,array);
+
+    var array = new Array();
+    if(state.has(contact.state))
+    {
+        array = state.get(contact.state);
+       
+    }
+    array.push(contact);
+    state.set(contact.state,array);
+})
+console.log("********Printing contacts based on city***********");
+for(let [key,value] of city){
+    console.log("The contacts in city "+key);
+    iterateArray(value);
+}
+console.log("********Printing contacts based on state***********");
+for(let [key,value] of state){
+    console.log("The contacts in state "+key);
+    iterateArray(value);
+}
+}
+
 //function for iterate array
 function iterateArray(contact) {
     if (contact.length > 0) {
@@ -211,7 +250,7 @@ function check() {
     while (true) {
      console.log("Enter 1 to add details to addressbook \nEnter 2 to Display \nEnter 3 to modify existing contact");
      console.log("Enter 4 to delete the contact\nEnter 5 to find count of addressbook");
-     console.log("Enter 6 to search based on city or state\n Enter 7 to exit")
+     console.log("Enter 6 to search based on city or state\nEnter 7 to view based on city or state\n Enter 8 to exit")
 
         var c = prompt("enter a option");
         switch (c) {
@@ -232,7 +271,10 @@ function check() {
                 break;
                 case "6":
                     searchBasedonStateOrCity(contactArray);
-            case "7":
+                    case "7":
+                        ViewByCityAndState(contactArray);
+                        break;
+            case "8":
                 return;
             default:
                 console.log("enter a valid option");
